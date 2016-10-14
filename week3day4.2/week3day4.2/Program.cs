@@ -14,8 +14,7 @@ namespace week3day4._2
 
 
 
-            bool KeepLoop = true;
-            List<Employee> emplist = new List<Employee>();
+            bool KeepLoop = true; 
             while (KeepLoop)
             {
                 Display();
@@ -43,21 +42,23 @@ namespace week3day4._2
                     default:
                         break;
                 }
+                //string End = Console.ReadLine();
+                //if (End == "y")
+                //{
+                //    KeepLoop = true;
+                //}
+                //else
+                //{
+                //    KeepLoop = false;
+                //}
+
             }
-            //emplist.Add();
-            string End = Console.ReadLine();
-            if (End == "y")
-            {
-                KeepLoop = true;
-            }
-            else
-            {
-                KeepLoop = false;
-            }
+            
+            
+            
         }
         static void Display()
         {
-            Console.Clear();
             Console.WriteLine("1.create");
             Console.WriteLine("-----------");
             Console.WriteLine("2.terminate");
@@ -93,15 +94,33 @@ namespace week3day4._2
             string G = Console.ReadLine();
 
             Employee emp1 = new Employee(X,Y,G);
-            
+            List<Employee> emplist = new List<Employee>();
+            emplist.Add(emp1);
+
         }
         public static void termination()
         {
+            List<Employee> emplist = new List<Employee>();
+            bool EmpFound = false;
+            Console.WriteLine("please enter employee ID.");
+            string X = Console.ReadLine();
+            foreach (Employee EMP in emplist)
+            {
+                if(EMP.NewId == X)
+                {
+                    EMP.Termdate();
+                }
+                if(EmpFound == false)
+                {
+                    Console.WriteLine("I didn't find it.");
+                }
+                
 
+            }    
         }
         public static void giveraise()
         {
-
+            
         }
         public static void payemployees()
         {

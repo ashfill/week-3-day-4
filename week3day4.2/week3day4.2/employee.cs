@@ -11,17 +11,25 @@ namespace week3day4._2
         private string id;
         private string employeeName;
         private string payrate;
+        private DateTime termination;
 
         public Employee(string newId, string newName, string newPayRate)
         {
             id = newId;
             employeeName = newName;
             payrate = newPayRate;
+           
         }
 
         public string NewId { get; }
         public string EmployeeName { get; }
         public string PayRate { get; }
+
+        public void Termdate()
+        {
+            termination = DateTime.Now;
+        }
+           
     }
 }
 

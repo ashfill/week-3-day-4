@@ -21,9 +21,29 @@ namespace week3day4._2
            
         }
 
-        public string NewId { get; }
-        public string EmployeeName { get; }
-        public string PayRate { get; }
+       
+        public string EmployeeName
+        {
+            get
+            {
+                return employeeName;
+            }
+        }
+        public string PayRate
+        {
+            get
+            {
+                return payrate;
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                return id;
+            }
+        }
 
         public void Termdate()
         {

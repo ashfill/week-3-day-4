@@ -93,7 +93,7 @@ namespace Employee_Database
         public static void CreatingNewEmployee()
         {
             Console.WriteLine("Please enter New Employee's ID.");
-            string X = Console.ReadLine();
+            int X = Convert.ToInt32(Console.ReadLine());
 
 
 
@@ -111,7 +111,7 @@ namespace Employee_Database
             List<Employee> emplist = new List<Employee>();
             bool EmpFound = false;
             Console.WriteLine("please enter employee ID.");
-            string X = Console.ReadLine();
+            int X = Convert.ToInt32(Console.ReadLine());
             foreach (Employee EMP in emplist)
             {
                 if (EMP.Id == X)
@@ -129,7 +129,7 @@ namespace Employee_Database
             List<Employee> emplist = new List<Employee>();
             bool Cash = false;
             Console.WriteLine("which employee do you want to give a raise?");
-            string raise = Console.ReadLine();
+            double raise = Convert.ToDouble(Console.ReadLine());
             {
                 foreach (Employee EMP4 in emplist)
                 {
@@ -150,7 +150,7 @@ namespace Employee_Database
             List<Employee> emplist = new List<Employee>();
             bool Money = false;
             Console.WriteLine("Press any key to pay employee");
-            string GetPaid = Console.ReadLine();
+            int GetPaid = Convert.ToInt32(Console.ReadLine());
             {
                 foreach (Employee EMP5 in emplist)
                 {
@@ -187,18 +187,19 @@ namespace Employee_Database
             using (XmlWriter writer = XmlWriter.Create(file))
             {
                 writer.WriteStartDocument();
-                writer.WriteStartElement("Profiles");
+                writer.WriteStartElement("catalog");
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
+        }
 
         public static void ReadInFile(string fileName)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\bin\\Debug\\employees.xml");
-            XmlNode empCat = doc.DocumentElement.SelectSingleNode("/Profiles");
+            doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml");
+            XmlNode catNode = doc.DocumentElement.SelectSingleNode("/catalog");
 
-            foreach (XmlNode child in empCat.ChildNodes)
+            foreach (XmlNode child in catNode.ChildNodes)
             {
                 foreach (XmlNode grandChild in child.ChildNodes)
                 {
@@ -219,9 +220,9 @@ namespace Employee_Database
         }
     }
 }
-            
-        
-    
+
+
+
 
 
 

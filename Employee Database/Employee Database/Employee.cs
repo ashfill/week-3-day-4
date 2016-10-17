@@ -9,19 +9,19 @@ namespace Employee_Database
     class Employee
     {
         List<Employee> emplist = new List<Employee>();
-        private string id;
+        private int id;
         private string employeeName;
         private double payrate;
         private double PayRaise;
         private DateTime termination;
-        public Employee(string newId, string newName, double newPayRate)
+        public Employee(int newId, string newName, double newPayRate)
         {
             id = newId;
             employeeName = newName;
             payrate = newPayRate;
         }
 
-        public string Id { get; }
+        public int Id { get; }
         public string EmployeeName { get; }
         public double PayRate { get; }
 

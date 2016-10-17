@@ -15,11 +15,11 @@ namespace Employee_Database
 
             List<Employee> emplist = new List<Employee>();
 
-            string fileName = "C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml";
+            string fileName = "C:\\Users\\ashton\\Documents\\Employees.xml";
 
             if (File.Exists(fileName))
             {
-                ReadInFile(fileName);
+                ReadInFile(fileName, emplist);
             }
             else
             {
@@ -177,7 +177,7 @@ namespace Employee_Database
             Console.WriteLine("This file does not exist. Please create a new one.");
             Console.WriteLine("");
 
-            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml"))
+            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Documents\\Employees.xml"))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("COMPANY");
@@ -186,37 +186,41 @@ namespace Employee_Database
             }
         }
 
-        public static void ReadInFile(string fileName)
+        public static void ReadInFile(string fileName, List<Employee> A)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug");
+            doc.Load("C:\\Users\\ashton\\Documents\\Employees.xml");
             XmlNode comNode = doc.DocumentElement.SelectSingleNode("/COMPANY");
 
             foreach (XmlNode child in comNode.ChildNodes)
             {
-                Employee EMP = new Employee(newId,newName,newPayRate);
+                int empId = 0;
+                string empName = "";
+                double empPayRate = 0;
                 foreach (XmlNode grandChild in child.ChildNodes)
                 {
                     switch (grandChild.Name)
                     {
                         case "EmployeeName":
                             {
-                                string EmployeeName = grandChild.InnerText;
+                                 empName = grandChild.InnerText;
                                 break;
                             }
                         case "Employee Id":
                             {
-                                int Id = Convert.ToInt32(grandChild.InnerText);
+                                empId = Convert.ToInt32(grandChild.InnerText);
                                 break;
                             }
                         case "PayRate":
-                            double PayRate = Convert.ToDouble(grandChild.InnerText);
+                            empPayRate = Convert.ToDouble(grandChild.InnerText);
                             break;
                         default:
                             break;
                       
 
                     }
+                    Employee emp = new Employee(empId, empName, empPayRate);
+                    A.Add(emp);
                 }
             }
         }
@@ -229,7 +233,7 @@ namespace Employee_Database
 
         public static void Save(List<Employee> A)
         {
-            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml"))
+            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Documents\\Employees.xml"))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("COMPANY");

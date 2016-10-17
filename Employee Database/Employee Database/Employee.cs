@@ -8,6 +8,7 @@ namespace Employee_Database
 {
     class Employee
     {
+        List<Employee> emplist = new List<Employee>();
         private string id;
         private string employeeName;
         private double payrate;
@@ -34,8 +35,8 @@ namespace Employee_Database
         }
         public void PayEmployee()
         {
-           
-            
+
+            Console.WriteLine("The following employee's have been paid{0}", emplist);
         }
     }
    

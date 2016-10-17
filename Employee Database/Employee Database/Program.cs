@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.IO;
 
 namespace Employee_Database
 {
@@ -11,8 +13,20 @@ namespace Employee_Database
         static void Main(string[] args)
         {
 
-            bool KeepLoop = true;
             List<Employee> emplist = new List<Employee>();
+
+            string fileName = "C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml";
+
+            if (File.Exists(fileName))
+            {
+                ReadInFile(fileName);
+            }
+            else
+            {
+                FileNotFound(fileName);
+            }
+
+            bool KeepLoop = true;
             while (KeepLoop)
             {
                 Display();
@@ -41,7 +55,7 @@ namespace Employee_Database
                         break;
                 }
             }
-            
+
             string End = Console.ReadLine();
             if (End == "y")
             {
@@ -119,7 +133,7 @@ namespace Employee_Database
             {
                 foreach (Employee EMP4 in emplist)
                 {
-                    if (EMP4.Id == payemployees)
+                    if (EMP4.Id == raise)
                     {
                         EMP4.raise();
                     }
@@ -134,6 +148,7 @@ namespace Employee_Database
         public static void payemployees()
         {
             List<Employee> emplist = new List<Employee>();
+            bool Money = false;
             Console.WriteLine("Press any key to pay employee");
             string GetPaid = Console.ReadLine();
             {
@@ -141,22 +156,76 @@ namespace Employee_Database
                 {
                     foreach (Employee EMP4 in emplist)
                     {
-                        if (EMP4 == GetPaid) 
+                        if (EMP4.Id == GetPaid)
                         {
-                            EMP4.raise();
+                            EMP4.PayEmployee();
                         }
-                        if (Cash == false)
+                        if (Money == false)
                         {
                         }
                         Console.WriteLine("The foloowing employee's have been paid,{0}", emplist);
+                    }
                 }
             }
         }
         public static void displayall()
         {
+            List<Employee> emplist = new List<Employee>();
+            foreach (Employee g in emplist)
+            {
+                Console.WriteLine(string.Format("{0}, {1}, {2}", g.EmployeeName, g.Id, g.PayRate));
 
+            }
+        }
+
+
+        static void FileNotFound(string file)
+        {
+            Console.WriteLine("This file does not exist. Please create a new one.");
+            Console.WriteLine("");
+
+            using (XmlWriter writer = XmlWriter.Create(file))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Profiles");
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+
+        public static void ReadInFile(string fileName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\bin\\Debug\\employees.xml");
+            XmlNode empCat = doc.DocumentElement.SelectSingleNode("/Profiles");
+
+            foreach (XmlNode child in empCat.ChildNodes)
+            {
+                foreach (XmlNode grandChild in child.ChildNodes)
+                {
+                    switch (grandChild.Name)
+                    {
+                        case "name":
+                            {
+                                string EmployeeName = grandChild.InnerText;
+                                Console.WriteLine("/***********************/");
+                                Console.WriteLine("");
+                                break;
+                            }
+
+
+                    }
+                }
+            }
         }
     }
 }
+            
+        
     
+
+
+
+
+
+
 

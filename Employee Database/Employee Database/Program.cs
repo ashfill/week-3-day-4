@@ -19,7 +19,7 @@ namespace Employee_Database
 
             if (File.Exists(fileName))
             {
-                
+                ReadInFile(fileName);
             }
             else
             {
@@ -186,7 +186,7 @@ namespace Employee_Database
             }
         }
 
-        public static void ReadInFile(string fileName, List<Employee>)
+        public static void ReadInFile(string fileName)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug");
@@ -204,7 +204,7 @@ namespace Employee_Database
                                 string EmployeeName = grandChild.InnerText;
                                 break;
                             }
-                        case "Employee ID":
+                        case "Employee Id":
                             {
                                 int Id = Convert.ToInt32(grandChild.InnerText);
                                 break;

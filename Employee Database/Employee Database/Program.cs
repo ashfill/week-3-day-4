@@ -204,7 +204,7 @@ namespace Employee_Database
                                 string EmployeeName = grandChild.InnerText;
                                 break;
                             }
-                        case "Employee Id":
+                        case "Employee ID":
                             {
                                 int Id = Convert.ToInt32(grandChild.InnerText);
                                 break;

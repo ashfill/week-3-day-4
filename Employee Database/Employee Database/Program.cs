@@ -163,7 +163,7 @@ namespace Employee_Database
                         if (Money == false)
                         {
                         }
-                        Console.WriteLine("The foloowing employee's have been paid,{0}", emplist);
+                        Console.WriteLine("The folowing employee's have been paid,{0}", emplist);
                     }
                 }
             }

@@ -34,19 +34,19 @@ namespace Employee_Database
                 switch (userinput)
                 {
                     case "1":
-                        CreatingNewEmployee();
+                        CreatingNewEmployee(emplist);
                         break;
                     case "2":
-                        termination();
+                        termination(emplist);
                         break;
                     case "3":
-                        giveraise();
+                        giveraise(emplist);
                         break;
                     case "4":
-                        payemployees();
+                        payemployees(emplist);
                         break;
                     case "5":
-                        displayall();
+                        displayall(emplist);
                         break;
                     case "6":
                         KeepLoop = false;
@@ -90,7 +90,7 @@ namespace Employee_Database
 
 
         }
-        public static void CreatingNewEmployee()
+        public static void CreatingNewEmployee(List<Employee> a)
         {
             Console.WriteLine("Please enter New Employee's ID.");
             int X = Convert.ToInt32(Console.ReadLine());
@@ -103,20 +103,22 @@ namespace Employee_Database
             Console.WriteLine("Please enter the new employee's pay rate.");
             double G = Convert.ToDouble(Console.ReadLine());
 
-            Employee emp1 = new Employee(X, Y, G);
-            List<Employee> emplist = new List<Employee>();
+            Console.WriteLine("Please set termination date.");
+            DateTime H = DateTime.Now;
+            Employee emp1 = new Employee(X, Y, G,H);
+            a.Add(emp1);
         }
-        public static void termination()
+        public static void termination(List<Employee> C)
         {
-            List<Employee> emplist = new List<Employee>();
+
             bool EmpFound = false;
             Console.WriteLine("please enter employee ID.");
             int X = Convert.ToInt32(Console.ReadLine());
-            foreach (Employee EMP in emplist)
+            foreach (Employee A in C)
             {
-                if (EMP.Id == X)
+                if (A.Id == X)
                 {
-                    EMP.Termdate();
+                    A.Termdate();
                 }
                 if (EmpFound == false)
                 {
@@ -124,18 +126,17 @@ namespace Employee_Database
                 }
             }
         }
-        public static void giveraise()
+        public static void giveraise(List<Employee> A)
         {
-            List<Employee> emplist = new List<Employee>();
             bool Cash = false;
             Console.WriteLine("which employee do you want to give a raise?");
-            double raise = Convert.ToDouble(Console.ReadLine());
+            double GetRaise = Convert.ToDouble(Console.ReadLine());
             {
-                foreach (Employee EMP4 in emplist)
+                foreach (Employee C in A)
                 {
-                    if (EMP4.Id == raise)
+                    if (C.Id == GetRaise)
                     {
-                        EMP4.raise();
+                        C.raise();
                     }
                     if (Cash == false)
                     {
@@ -145,36 +146,28 @@ namespace Employee_Database
 
             }
         }
-        public static void payemployees()
+        public static void payemployees(List<Employee> A)
         {
-            List<Employee> emplist = new List<Employee>();
-            bool Money = false;
             Console.WriteLine("Press any key to pay employee");
-            int GetPaid = Convert.ToInt32(Console.ReadLine());
+
             {
-                foreach (Employee EMP5 in emplist)
-                {
-                    foreach (Employee EMP4 in emplist)
+                foreach (Employee C in A)
+                    if (C.Termination != DateTime.MinValue)
                     {
-                        if (EMP4.Id == GetPaid)
-                        {
-                            EMP4.PayEmployee();
-                        }
-                        if (Money == false)
-                        {
-                        }
-                        Console.WriteLine("The folowing employee's have been paid,{0}", emplist);
+                        Console.WriteLine("These employees got paid {0}", A);
                     }
-                }
+
             }
         }
-        public static void displayall()
-        {
-            List<Employee> emplist = new List<Employee>();
-            foreach (Employee g in emplist)
-            {
-                Console.WriteLine(string.Format("{0}, {1}, {2}", g.EmployeeName, g.Id, g.PayRate));
 
+
+        public static void displayall(List<Employee> A)
+        {
+
+            foreach (Employee C in A)
+            {
+                Console.WriteLine(string.Format("{0}, {1}, {2} {3}", C.Id, C.EmployeeName, C.PayRate, C.Termination));
+                Console.ReadLine();
             }
         }
 
@@ -208,8 +201,6 @@ namespace Employee_Database
                         case "name":
                             {
                                 string EmployeeName = grandChild.InnerText;
-                                Console.WriteLine("/***********************/");
-                                Console.WriteLine("");
                                 break;
                             }
 
@@ -220,6 +211,8 @@ namespace Employee_Database
         }
     }
 }
+    
+
 
 
 

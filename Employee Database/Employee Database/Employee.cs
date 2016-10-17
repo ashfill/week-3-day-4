@@ -8,13 +8,13 @@ namespace Employee_Database
 {
     class Employee
     {
-        List<Employee> emplist = new List<Employee>();
+       
         private int id;
         private string employeeName;
         private double payrate;
         private double PayRaise;
         private DateTime termination;
-        public Employee(int newId, string newName, double newPayRate)
+        public Employee(int newId, string newName, double newPayRate, DateTime termination)
         {
             id = newId;
             employeeName = newName;
@@ -25,19 +25,34 @@ namespace Employee_Database
         public string EmployeeName { get; }
         public double PayRate { get; }
 
+        public DateTime Termination
+        {
+            get
+            {
+                return termination;
+            }
+
+           
+        }
+
+        public double PayRaise1
+        {
+            get
+            {
+                return PayRaise;
+            }
+
+        }
+
         public void Termdate()
         {
-            termination = DateTime.Now;
+            termination = DateTime.MinValue;
         }
         public void raise()
         {
             PayRaise = PayRate * .05;
         }
-        public void PayEmployee()
-        {
-
-            Console.WriteLine("The following employee's have been paid{0}", emplist);
-        }
+       
     }
    
 }

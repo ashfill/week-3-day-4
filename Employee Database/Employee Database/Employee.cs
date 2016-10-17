@@ -21,9 +21,29 @@ namespace Employee_Database
             payrate = newPayRate;
         }
 
-        public int Id { get; }
-        public string EmployeeName { get; }
-        public double PayRate { get; }
+
+        public string EmployeeName
+        {
+            get
+            {
+                return employeeName;
+            }
+        }
+        public double PayRate
+        {
+            get
+            {
+                return payrate;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            }
 
         public DateTime Termination
         {

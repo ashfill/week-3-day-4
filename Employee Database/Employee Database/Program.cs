@@ -19,7 +19,7 @@ namespace Employee_Database
 
             if (File.Exists(fileName))
             {
-                ReadInFile(fileName);
+                
             }
             else
             {
@@ -93,19 +93,15 @@ namespace Employee_Database
         }
         public static void CreatingNewEmployee(List<Employee> A)
         {
-            Console.WriteLine("Please enter New Employee's ID.");
-            int X = Convert.ToInt32(Console.ReadLine());
-
-
+            Console.WriteLine("Please enter the new employee's ID.");
+            int Y = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Please enter the new employee's name.");
-            string Y = Console.ReadLine();
+            string G = Console.ReadLine();
 
-            Console.WriteLine("Please enter the new employee's pay rate.");
-            double G = Convert.ToDouble(Console.ReadLine());
-
-            Console.WriteLine("Please set termination date.");
-            Employee emp1 = new Employee(X, Y, G);
+            Console.WriteLine("Please set PayRate.");
+            double F = Convert.ToDouble(Console.ReadLine());
+            Employee emp1 = new Employee(Y,G ,F);
             A.Add(emp1);
         }
         public static void Termination(List<Employee> A)
@@ -138,10 +134,8 @@ namespace Employee_Database
                 {
                     if (C.Id == GetRaise)
                     {
-                        Cash = true;
-
                         C.raise();
-                         
+                        Cash = true;
                     }
                     if (Cash == false)
                     {
@@ -157,7 +151,7 @@ namespace Employee_Database
 
             {
                 foreach (Employee C in A)
-                    if (C.Termination!=DateTime.MinValue)
+                    if (C.Termination != DateTime.MinValue)
                     {
                         Console.WriteLine("These employees got paid {0}", A);
                     }
@@ -171,7 +165,8 @@ namespace Employee_Database
 
             foreach (Employee C in A)
             {
-                Console.WriteLine(string.Format("{0}, {1}, {2}", C.EmployeeName, C.Id, C.PayRate));
+               
+                Console.WriteLine("{0}, {1}, {2}", C.Id, C.EmployeeName, C.PayRate);
                 Console.ReadKey();
             }
 
@@ -185,46 +180,59 @@ namespace Employee_Database
             using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml"))
             {
                 writer.WriteStartDocument();
-                writer.WriteStartElement("company");
+                writer.WriteStartElement("COMPANY");
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
         }
 
-        public static void ReadInFile(string fileName)
+        public static void ReadInFile(string fileName, List<Employee>)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug");
-            XmlNode catNode = doc.DocumentElement.SelectSingleNode("/company");
+            XmlNode comNode = doc.DocumentElement.SelectSingleNode("/COMPANY");
 
-            foreach (XmlNode child in catNode.ChildNodes)
+            foreach (XmlNode child in comNode.ChildNodes)
             {
+                Employee EMP = new Employee(newId,newName,newPayRate);
                 foreach (XmlNode grandChild in child.ChildNodes)
                 {
                     switch (grandChild.Name)
                     {
-                        case "name":
+                        case "EmployeeName":
                             {
                                 string EmployeeName = grandChild.InnerText;
                                 break;
                             }
+                        case "Employee Id":
+                            {
+                                int Id = Convert.ToInt32(grandChild.InnerText);
+                                break;
+                            }
+                        case "PayRate":
+                            double PayRate = Convert.ToDouble(grandChild.InnerText);
+                            break;
+                        default:
+                            break;
+                      
+
                     }
                 }
             }
         }
-                    
-                
-            
 
 
 
 
-public static void Save(List<Employee> A)
+
+
+
+        public static void Save(List<Employee> A)
         {
             using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml"))
             {
                 writer.WriteStartDocument();
-                writer.WriteStartElement("Company");
+                writer.WriteStartElement("COMPANY");
 
                 foreach (Employee C in A)
                 {

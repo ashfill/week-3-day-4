@@ -37,18 +37,19 @@ namespace Employee_Database
                         CreatingNewEmployee(emplist);
                         break;
                     case "2":
-                        termination(emplist);
+                        Termination(emplist);
                         break;
                     case "3":
-                        giveraise(emplist);
+                        GiveRaise(emplist);
                         break;
                     case "4":
-                        payemployees(emplist);
+                        PayEmployees(emplist);
                         break;
                     case "5":
-                        displayall(emplist);
+                        DisplayAll(emplist);
                         break;
                     case "6":
+                        Save(emplist);
                         KeepLoop = false;
                         break;
                     default:
@@ -90,7 +91,7 @@ namespace Employee_Database
 
 
         }
-        public static void CreatingNewEmployee(List<Employee> a)
+        public static void CreatingNewEmployee(List<Employee> A)
         {
             Console.WriteLine("Please enter New Employee's ID.");
             int X = Convert.ToInt32(Console.ReadLine());
@@ -104,21 +105,22 @@ namespace Employee_Database
             double G = Convert.ToDouble(Console.ReadLine());
 
             Console.WriteLine("Please set termination date.");
-            DateTime H = DateTime.Now;
-            Employee emp1 = new Employee(X, Y, G,H);
-            a.Add(emp1);
+            Employee emp1 = new Employee(X, Y, G);
+            A.Add(emp1);
         }
-        public static void termination(List<Employee> C)
+        public static void Termination(List<Employee> A)
         {
 
             bool EmpFound = false;
             Console.WriteLine("please enter employee ID.");
             int X = Convert.ToInt32(Console.ReadLine());
-            foreach (Employee A in C)
+            foreach (Employee C in A)
             {
-                if (A.Id == X)
+                if (C.Id == X)
                 {
-                    A.Termdate();
+                    C.Termdate();
+
+                    EmpFound = true;
                 }
                 if (EmpFound == false)
                 {
@@ -126,7 +128,7 @@ namespace Employee_Database
                 }
             }
         }
-        public static void giveraise(List<Employee> A)
+        public static void GiveRaise(List<Employee> A)
         {
             bool Cash = false;
             Console.WriteLine("which employee do you want to give a raise?");
@@ -136,7 +138,10 @@ namespace Employee_Database
                 {
                     if (C.Id == GetRaise)
                     {
+                        Cash = true;
+
                         C.raise();
+                         
                     }
                     if (Cash == false)
                     {
@@ -146,13 +151,13 @@ namespace Employee_Database
 
             }
         }
-        public static void payemployees(List<Employee> A)
+        public static void PayEmployees(List<Employee> A)
         {
-            Console.WriteLine("Press any key to pay employee");
+            Console.WriteLine("Select Employee id to pay employee");
 
             {
                 foreach (Employee C in A)
-                    if (C.Termination != DateTime.MinValue)
+                    if (C.Termination!=DateTime.MinValue)
                     {
                         Console.WriteLine("These employees got paid {0}", A);
                     }
@@ -161,26 +166,26 @@ namespace Employee_Database
         }
 
 
-        public static void displayall(List<Employee> A)
+        static void DisplayAll(List<Employee> A)
         {
 
             foreach (Employee C in A)
             {
-                Console.WriteLine(string.Format("{0}, {1}, {2} {3}", C.Id, C.EmployeeName, C.PayRate, C.Termination));
-                Console.ReadLine();
+                Console.WriteLine(string.Format("{0}, {1}, {2}", C.EmployeeName, C.Id, C.PayRate));
+                Console.ReadKey();
             }
-        }
 
+        }
 
         static void FileNotFound(string file)
         {
             Console.WriteLine("This file does not exist. Please create a new one.");
             Console.WriteLine("");
 
-            using (XmlWriter writer = XmlWriter.Create(file))
+            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml"))
             {
                 writer.WriteStartDocument();
-                writer.WriteStartElement("catalog");
+                writer.WriteStartElement("company");
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
@@ -189,8 +194,8 @@ namespace Employee_Database
         public static void ReadInFile(string fileName)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml");
-            XmlNode catNode = doc.DocumentElement.SelectSingleNode("/catalog");
+            doc.Load("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug");
+            XmlNode catNode = doc.DocumentElement.SelectSingleNode("/company");
 
             foreach (XmlNode child in catNode.ChildNodes)
             {
@@ -203,15 +208,45 @@ namespace Employee_Database
                                 string EmployeeName = grandChild.InnerText;
                                 break;
                             }
-
-
                     }
                 }
             }
         }
+                    
+                
+            
+
+
+
+
+public static void Save(List<Employee> A)
+        {
+            using (XmlWriter writer = XmlWriter.Create("C:\\Users\\ashton\\Source\\Repos\\week-3-day-4\\week3day4\\week3day4\\bin\\Debug\\Employees.xml"))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Company");
+
+                foreach (Employee C in A)
+                {
+                    writer.WriteStartElement("Employee");
+
+                    writer.WriteElementString("Id", C.Id.ToString());
+                    writer.WriteElementString("EmployeeName", C.EmployeeName);
+                    writer.WriteElementString("PayRate", C.PayRate.ToString());
+
+                    writer.WriteEndElement();
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+
+            }
+        }
+
     }
 }
-    
+
+
 
 
 

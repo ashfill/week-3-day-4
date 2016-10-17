@@ -14,7 +14,7 @@ namespace Employee_Database
         private double payrate;
         private double PayRaise;
         private DateTime termination;
-        public Employee(int newId, string newName, double newPayRate, DateTime termination)
+        public Employee(int newId, string newName, double newPayRate)
         {
             id = newId;
             employeeName = newName;
